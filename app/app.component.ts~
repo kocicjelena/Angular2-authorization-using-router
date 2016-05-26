@@ -1,0 +1,31 @@
+import {Component, ElementRef, Input, OnInit} from 'angular2/core';
+import {Hero} from './hero';
+import {HeroDetailComponent} from './hero-detail.component';
+import {HeroService} from './hero.service';
+import {ServerService} from './server.service';
+import { VoteTakerComponent } from './votetaker.component';
+import { ClickMeComponent } from './val';
+import { JsonPipeExample, AppCmp } from './json_pipe_example';
+@Component({
+  selector: 'my-app',
+        styleUrls: ['app/app.component.css'],
+    templateUrl: 'app/app.component.html',
+      styleUrls: ['app/app.component.css'],
+  directives: [HeroDetailComponent, VoteTakerComponent, MTakerComponent, ClickMeComponent],
+  providers: [HeroService, ServerService]
+})
+export class AppComponent implements OnInit {
+  heroes: Hero[];
+  selectedHero: Hero;
+  constructor(private _heroService: HeroService, service:ServerService) { }
+  getHeroes() {
+    this._heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+  ngOnInit() {
+    this.getHeroes();
+  }
+  onSelect(hero: Hero) { this.selectedHero = hero; }
+  onSave(){this.selectedHero = "";}
+
+}
+
